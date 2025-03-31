@@ -1,17 +1,18 @@
-# 📚 Studies
+# Studies
 
 Esse é um repositório dedicado aos meus estudos em programação!
 
-# 📁 Organização
+# Organização
 
 Os estudos estão organizados em pastas, separadas por tecnologia ou tema. Exemplo:
 
-📂 Studies
-┣ 📂 HTML_CSS
-┣ 📂 JavaScript
-┣ 📂 React
-┣ 📂 Desafios
-┗ 📂 Projetos
+| 📂 Studies    |
+| ------------- |
+| 📂 HTML_CSS   |
+| 📂 JavaScript |
+| 📂 React      |
+| 📂 Desafios   |
+| 📂 Projetos   |
 
 ## Como Usar
 
