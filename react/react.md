@@ -158,8 +158,42 @@ export default App;
 ## O que é uma props?
 
 - São uma forma de passar dados de um componente pai para um componente filho. Eles são objetos que contêm valores que podem ser acessados dentro do componente filho.
+- O App geralmente é o componente pai principal porque ele é o ponto de entrada da aplicação.
+- O elemento pai é o que renderiza tudo. Então o filho é o componente. Se eu adicionar um useState, ele precisará ser adicionado no elemento pai (que é quem renderiza) e passado como props para o elemento filho (componente). O elemento filho não poderá alterar o state do pai, só acessa, o pai quem altera por meio de funções.
 - São usadas para passar dados de um componente pai para um componente filho.
 - Elas são somente leitura (o componente filho não pode modificar os valores das props recebidas).
 - Permitem que os componentes sejam reutilizáveis e dinâmicos.
-- O App geralmente é o componente pai principal porque ele é o ponto de entrada da aplicação.
 - Fluxo de dados unidirecional: As informações fluem do pai para o filho, não o contrário.
+
+## Destructuring
+
+- É um recurso do JavaScript que permite extrair valores de objetos ou arrays de forma mais concisa e prática, utilizando uma sintaxe especial. Quando falamos de "destructuring das props", estamos nos referindo à técnica de usar o destructuring para extrair propriedades de um objeto (geralmente, as props passadas para um componente React) de forma direta.
+- Suponha que você tenha um componente React que recebe um objeto props com várias propriedades. Em vez de acessar cada propriedade individualmente com props.nome ou props.idade, você pode fazer o destructuring diretamente nas variáveis dentro dos parâmetros da função.
+
+**Exemplo de acesso às props sem o destructurin:**
+
+```jsx
+const MeuComponente = (props) => {
+  return (
+    <div>
+      <h1>{props.nome}</h1>
+      <p>{props.idade}</p>
+    </div>
+  );
+};
+```
+
+**Exemplo de acesso às props com o destructurin:**
+
+```jsx
+const MeuComponente = ({ nome, idade }) => {
+  return (
+    <div>
+      <h1>{nome}</h1>
+      <p>{idade}</p>
+    </div>
+  );
+};
+```
+
+- O destructuring das props é uma prática muito comum em componentes React, especialmente quando você tem várias props para acessar e quer evitar a repetição da palavra 'props'.
