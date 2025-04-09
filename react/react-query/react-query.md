@@ -54,3 +54,51 @@ Nessa propriedade passamos uma função que será chamada quando a requisição 
 ## onError
 
 É uma propriedade que passamos uma função que sera chamada quando ocorre um erro na requisição, no exemplo usamos para dar um console.log da constante “data” também.
+
+## Revalidação Baseada em Tempo e Revalidação sob demanda
+
+- **Revalidação Baseada em Tempo**: Revalidar dados após um determinado período de tempo e uma nova solicitação ser feita. Isso é útil para dados que mudam com pouca frequência e cuja atualização não é tão crítica.
+- Define o tempo de vida útil do cache de um recurso (em segundos).
+
+```tsx
+export default async function PostsPage() {
+  const res = await fetch("https://api.exemplo.com/posts", {
+    next: { revalidate: 30 },
+  });
+}
+```
+
+- **Revalidação sob demanda**: revalidar dados com base em um evento (por exemplo, envio de formulário). A revalidação sob demanda pode usar uma abordagem baseada em tags ou caminhos para revalidar grupos de dados de uma só vez. Isso é útil quando você deseja garantir que os dados mais recentes sejam exibidos o mais rápido possível (por exemplo, quando o conteúdo do seu CMS headless é atualizado).
+
+```tsx
+// Server Component
+export default async function PostsPage() {
+  const res = await fetch("https://api.exemplo.com/posts", {
+    next: {
+      tags: ["posts"], // ⬅️ aqui está a tag
+    },
+  });
+
+  const posts = await res.json();
+
+  return (
+    <div>
+      <h1>Lista de Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+// API Route (Server Action ou Route Handler)
+import { revalidateTag } from "next/cache";
+
+export async function POST() {
+  revalidateTag("posts"); // ⬅️ Invalida o cache com essa tag
+  //Apagar o que estava guardado no cache com aquela tag e forçar um novo fetch() da fonte original de dados
+
+  return Response.json({ revalidated: true });
+}
+```
